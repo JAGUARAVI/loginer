@@ -13,14 +13,13 @@ $mail = new PHPMailer(true);
 require ('config/config.ini.php');
 
 class Loginer{
-
     public $conn;
     public $errors = array();
     public $mail;
     
     public function __construct(){
         
-        global $host, $sql_username, $sql_password, $db, $conn, $mail;
+        global $host, $sql_username, $sql_password, $db, $conn, $mail, $currentWebDir;
         
         if(!isset($host) || !isset($sql_username) || !isset($sql_password) || !isset($db)){
             http_response_code(503);
@@ -58,13 +57,13 @@ class Loginer{
     
     public function emailVerification_email($email,$username,$code){
         $subject = "Verify Email Address";
-        $body = $this->render_email('email-templates/email-verification.phtml',$username,"https://shortli.cf/login/verify?username=$username&code=$code");
+        $body = $this->render_email('email-templates/email-verification.phtml',$username,$this->currentWebDir."verify?username=$username&code=$code");
         return $this->sendEmail($email,$username,$subject,$body,'');
     }
     
     public function forgotPassword_email($email,$username,$code){
         $subject = "Reset Password";
-        $body = $this->render_email('email-templates/reset-password.phtml',$username,"https://shortli.cf/login/reset_password?username=$username&code=$code");
+        $body = $this->render_email('email-templates/reset-password.phtml',$username,$this->currentWebDir."reset_password?username=$username&code=$code");
         return $this->sendEmail($email,$username,$subject,$body,'');
     }
     
@@ -459,10 +458,8 @@ class Loginer{
     }
     
     
-    
     public function __destruct(){
         mysqli_close($this->conn);
     }
 }
-
 ?>
