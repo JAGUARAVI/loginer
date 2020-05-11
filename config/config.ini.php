@@ -18,6 +18,8 @@ $sql_password = 'sEcReT1@3';
 //Enter MySql Database Name
 $db = 'mYdB';
 
+$currentWebDir = 'https://shortli.cf/login/';
+
 
 //Email Configuration
 
