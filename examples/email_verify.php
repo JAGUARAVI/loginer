@@ -2,9 +2,8 @@
 //require 'path/to/loginer.main.php';
 require '../loginer.main.php';
 
-$user = new Loginer();
-
 if(isset($_REQUEST['username']) && isset($_REQUEST['code'])){
+    $user = new Loginer();
     $user->emailVerify($_REQUEST['username'],$_REQUEST['code']);
     if($user == true){
         header('Refresh: 10;URL=../');
