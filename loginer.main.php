@@ -463,7 +463,10 @@ class Loginer{
         return ob_get_clean();
     }
     
-    public function user_check($username,$email){
+    public function user_check($username){
+        
+        $username = mysqli_real_escape_string($this->conn, $username);
+        
         if (empty($username)) {
             array_push($this->errors, "Username is required !");
         }
