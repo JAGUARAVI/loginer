@@ -1,5 +1,6 @@
 <?php
-require('loginizer.php');
+//require 'path/to/loginer.main.php';
+require '../loginer.main.php';
 if(isset($_POST['submit'])){
     $user = new Loginer;
     $register = $user->register( $_POST['username'] , $_POST['email'] , $_POST['password_1'] , $_POST['password_2'] );
