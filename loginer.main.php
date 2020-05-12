@@ -373,10 +373,16 @@ class Loginer{
         $username = mysqli_real_escape_string($this->conn, $username);
         $code = mysqli_real_escape_string($this->conn, $code);
         
-        if (empty($username)) {
+        if (empty($username) || !isset($username)) {
             array_push($this->errors, "Username is required");
         }
-        if (empty($code)) {
+        if(isset($username) === true && $username === '') {
+            array_push($this->errors, "Username is required");
+        }
+        if (empty($code) || !isset($username)) {
+            array_push($this->errors, "Verification code is required");
+        }
+        if(isset($code) === true && $code === '') {
             array_push($this->errors, "Verification code is required");
         }
         
@@ -396,13 +402,13 @@ class Loginer{
                  
             }
             else{
-                return false;
                 array_push($this->errors, "DB error !");
+                return false;
             }
         }
         else{
-            return false;
             array_push($this->errors, "Error Found !");
+            return false;
         }
         
     }
@@ -457,9 +463,26 @@ class Loginer{
         return ob_get_clean();
     }
     
+    public function user_check($username,$email){
+        if (empty($username)) {
+            array_push($this->errors, "Username is required !");
+        }
+        if (count($this->errors) == 0) {
+            $query = "SELECT * FROM users WHERE BINARY username='$username'";
+            $results = mysqli_query($this->conn, $query);
+            if (mysqli_num_rows($result) > 0) {
+          	  return false;
+          	}
+          	else{
+          	    return true;
+          	}
+        }
+    }
+    
     
     public function __destruct(){
         mysqli_close($this->conn);
     }
 }
+
 ?>
