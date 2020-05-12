@@ -7,3 +7,11 @@ CREATE TABLE `users` (
   `code` varchar(1000) COLLATE utf16_unicode_ci NOT NULL,
   `verification` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
+
+
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+  
+  
+  ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
